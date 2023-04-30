@@ -13,7 +13,7 @@ export default function accountReducer(state = { amount: 200 }, action) {
             return { amount: state.amount + action.payload };
 
         case GET_ACCOUNT_FULFILLED:
-            return { amount: state.amount + action.payload, pending: false };
+            return { amount: action.payload, pending: false };
 
         case GET_ACCOUNT_PENDING:
             return {

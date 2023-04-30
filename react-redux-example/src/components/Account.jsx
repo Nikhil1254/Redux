@@ -3,35 +3,40 @@ import {
   incrementAmount,
   decrementAmount,
   incrementByAmount,
+  getAccount,
 } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 function Account({ Store }) {
   const [value, setValue] = useState(0);
+  const amount = useSelector((state) => state.account.amount);
+  const dispatch = useDispatch();
 
   return (
     <>
-      <div className="container-fluid text-center bg-info p-3 rounded mb-2 rounded">
+      <div className="container-fluid text-center bg-warning p-3 rounded mb-2 rounded">
         <h3>Account Component</h3>
-        <h2>Amount: ${Store.getState().account.amount}</h2>
+        <h2>Amount: ${amount}</h2>
         <button
-          onClick={() => Store.dispatch(incrementAmount())}
-          className="btn btn-warning mx-2"
+          onClick={() => dispatch(incrementAmount())}
+          className="btn btn-danger mx-2"
         >
           +1
         </button>
         <button
-          onClick={() => Store.dispatch(decrementAmount())}
-          className="btn btn-warning mx-2"
+          onClick={() => dispatch(decrementAmount())}
+          className="btn btn-danger mx-2"
         >
           -1
         </button>
         <input onChange={(e) => setValue(+e.target.value)} type="text" />
         <button
-          onClick={() => Store.dispatch(incrementByAmount(value))}
+          onClick={() => dispatch(incrementByAmount(value))}
           className="btn btn-danger mx-2"
         >
           +{value}
         </button>
+        <button className="btn btn-danger" onClick={()=>dispatch(getAccount(2))}>Init Account</button>
       </div>
     </>
   );

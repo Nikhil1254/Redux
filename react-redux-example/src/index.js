@@ -7,9 +7,10 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import accountReducer from './reducers/account'
 import bonusReducer from './reducers/bonus';
+import { Provider } from 'react-redux';
 
 
-const Store = createStore(
+const store = createStore(
   combineReducers(
     {
       account: accountReducer,
@@ -21,6 +22,8 @@ const Store = createStore(
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <App Store={Store} />
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
 

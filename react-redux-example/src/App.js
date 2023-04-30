@@ -1,36 +1,25 @@
+import { useSelector } from "react-redux";
 import Account from "./components/Account";
 import Bonus from "./components/Bonus";
 
-function App({ Store }) {
-  // const [bonus, setBonus] = useState({ points: 0 });
-  // const [account, setAccount] = useState({ amount: 0 });
+function App() {
 
-
-  // const incrementBonus = () => {
-  //   setBonus({ points: bonus.points + 1 });
-  // };
-
-  // const increment = () => {
-  //   setAccount({ amount: account.amount + 1 });
-  // };
-
-  // const decrement = () => {
-  //   setAccount({ amount: account.amount - 1 });
-  // };
-
-  // const incrementByAmount = (value) => {
-  //   setAccount({ amount: account.amount + value });
-  // };
+  const amount = useSelector(state => state.account.amount);
+  const points = useSelector(state => state.bonus.points);
+  const account = useSelector(state => state.account);
 
   return (
     <div className="container-fluid text-center border border-danger p-2">
       <h1>App Component</h1>
-      <h3>Account : ${Store.getState().account.amount}</h3>
-      <h3>Bonus : {Store.getState().bonus.points}</h3>
-      <Account
-        Store={Store}
-      />
-      <Bonus Store={Store} />
+      {
+        account.pending ? <p className="text-warning">Loading....</p> :
+          (
+            account.error ? <h3 className="text-danger">ERROR: {account.error}</h3> : <h3 className="text-success">Amount: ${account.amount}</h3>
+          )
+      }
+      <h3>Bonus : {points}</h3>
+      <Account />
+      <Bonus />
     </div>
   );
 }
