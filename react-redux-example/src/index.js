@@ -2,22 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import accountReducer from './reducers/account'
-import bonusReducer from './reducers/bonus';
 import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import accountReducer from './slices/account';
+import bonusReducer from './slices/bonus';
+import rewardReducer from './reducers/reward';
 
 
-const store = createStore(
-  combineReducers(
-    {
-      account: accountReducer,
-      bonus: bonusReducer
-    }
-  ), applyMiddleware(logger, thunk)
-)
+const store = configureStore({
+  reducer: {
+    account: accountReducer,
+    bonus: bonusReducer,
+    reward: rewardReducer
+  }
+})
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
